@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Securing Your Spot...</title>
+    <style>
+        body {
+            background-color: #000000;
+            color: #FF4D00;
+            font-family: 'Bebas Neue', Impact, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+        h1 { font-size: 4rem; margin-bottom: 10px; }
+        p { font-family: monospace; color: #F5F5F0; font-size: 1rem; }
+    </style>
+</head>
+<body>
+    <h1>TICKET SECURED.</h1>
+    <p>Redirecting you to the intake manifest...</p>
+
+    <script>
+        // In a completely serverless GitHub Pages setup, the easiest way 
+        // to pass the email without a backend is if you use a tool like Tally/Typeform
+        // that accepts hidden fields via URL parameters. 
+        
+        // Replace this with your actual form link.
+        // Example: https://tally.so/r/mYformId
+        const baseFormUrl = "https://YOUR_TALLY_OR_TYPEFORM_LINK";
+
+        setTimeout(() => {
+            // We just redirect them straight to the form. 
+            // If you need their Stripe session ID passed into the form to reconcile it later:
+            const urlParams = new URLSearchParams(window.location.search);
+            const sessionId = urlParams.get('session_id');
+            
+            if (sessionId) {
+                window.location.href = `${baseFormUrl}?session=${sessionId}`;
+            } else {
+                window.location.href = baseFormUrl;
+            }
+        }, 2500); // Gives them a 2.5 second flash of the brutalist confirmation screen
+    </script>
+</body>
+</html>
