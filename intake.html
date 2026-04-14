@@ -203,8 +203,8 @@
 
     </form>
 
-    <script>
-        // INSERT YOUR GOOGLE APPS SCRIPT WEB APP URL HERE
+<script>
+        // Your active Google Apps Script Web App URL
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzR63Ql7kB3zVwTJfa8I55UchtOStPV4J67MM2nRNexfyPdzqsX1b4LqZOssaX3o7xf/exec';
 
         async function submitManifest(e) {
@@ -227,16 +227,17 @@
             };
 
             try {
-                if (GOOGLE_SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbzR63Ql7kB3zVwTJfa8I55UchtOStPV4J67MM2nRNexfyPdzqsX1b4LqZOssaX3o7xf/exec') {
+                if (GOOGLE_SCRIPT_URL !== 'YOUR_WEB_APP_URL_HERE') {
                     await fetch(GOOGLE_SCRIPT_URL, {
                         method: 'POST',
                         mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
+                        // THE FIX: Changed to text/plain to bypass Google's strict CORS preflight
+                        headers: { 'Content-Type': 'text/plain' }, 
                         body: JSON.stringify(payload),
                     });
                 } else {
                     console.warn("Dev Mode: Payload captured, but no Google Script URL provided.", payload);
-                    await new Promise(resolve => setTimeout(resolve, 1500)); // Fake delay for demo
+                    await new Promise(resolve => setTimeout(resolve, 1500)); 
                 }
 
                 // Hide form, show brutalist success state
