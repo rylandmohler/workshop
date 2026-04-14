@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>THE INTAKE MANIFEST</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#FF4D00",
+                        "secondary": "#FF0066",
+                        "surface": "#F5F5F0",
+                        "inverse": "#000000",
+                    },
+                    fontFamily: {
+                        "headline": ["Bebas Neue", "sans-serif"],
+                        "body": ["Special Elite", "monospace"],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #000000;
+            color: #F5F5F0;
+            font-family: 'Special Elite', monospace;
+        }
+        .bebas { font-family: 'Bebas Neue', sans-serif; }
+        
+        /* Brutalist Input Reset */
+        input[type="text"], input[type="email"], select, textarea {
+            width: 100%;
+            background-color: #000000;
+            color: #F5F5F0;
+            border: none;
+            border-bottom: 4px solid #F5F5F0;
+            border-radius: 0;
+            padding: 16px 0;
+            font-size: 1.25rem;
+            font-family: 'Special Elite', monospace;
+            transition: none;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            background-color: #FF4D00;
+            color: #000000;
+            border-color: #FF4D00;
+            padding-left: 16px; /* Brutalist jump on focus */
+            box-shadow: none;
+        }
+        input::placeholder, textarea::placeholder {
+            color: #666666;
+        }
+        select {
+            appearance: none;
+            cursor: pointer;
+        }
+        
+        /* Custom Radio Buttons */
+        .radio-container {
+            display: block;
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 16px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            user-select: none;
+        }
+        .radio-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 24px;
+            width: 24px;
+            background-color: transparent;
+            border: 3px solid #F5F5F0;
+        }
+        .radio-container:hover input ~ .checkmark {
+            background-color: #333;
+        }
+        .radio-container input:checked ~ .checkmark {
+            background-color: #FF4D00;
+            border-color: #FF4D00;
+        }
+        
+        .hard-shadow-primary { box-shadow: 8px 8px 0px 0px #FF4D00; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center py-16 px-6 md:px-16">
+
+    <header class="w-full max-w-3xl mb-16 border-l-8 border-primary pl-8">
+        <h1 class="bebas text-6xl md:text-8xl text-white tracking-tighter leading-none mb-6">
+            THE INTAKE<br><span class="text-primary">MANIFEST</span>
+        </h1>
+        <div class="bg-surface text-inverse p-6 hard-shadow-primary">
+            <p class="font-bold text-lg mb-4 uppercase">Read this carefully:</p>
+            <p class="mb-4 text-sm leading-relaxed">
+                We haven't written the curriculum yet. We are building this workshop around the specific businesses in the room. Your answers below will literally dictate what we build live on April 24th. 
+            </p>
+            <p class="text-sm leading-relaxed text-secondary font-bold">
+                * Note: If you fill this out the night before, you get what you get. Do it now. It takes 60 seconds.
+            </p>
+        </div>
+    </header>
+
+    <form class="w-full max-w-3xl space-y-16" onsubmit="event.preventDefault(); alert('Form submitted. Add your webhook/Google Script logic here!'); window.location.href='index.html';">
+        
+        <section class="space-y-8">
+            <h2 class="bebas text-4xl text-secondary border-b-2 border-secondary pb-2">01. IDENTIFICATION</h2>
+            
+            <div>
+                <label class="block text-sm text-gray-400 uppercase mb-2">Your Name</label>
+                <input type="text" placeholder="John Doe" required>
+            </div>
+            <div>
+                <label class="block text-sm text-gray-400 uppercase mb-2">Email Address</label>
+                <input type="email" placeholder="you@business.com" required>
+            </div>
+            <div>
+                <label class="block text-sm text-gray-400 uppercase mb-2">Business Name</label>
+                <input type="text" placeholder="Acme Corp / Sole Trader" required>
+            </div>
+        </section>
+
+        <section class="space-y-6">
+            <h2 class="bebas text-4xl text-secondary border-b-2 border-secondary pb-2">02. THE ARSENAL</h2>
+            <p class="text-sm text-gray-400 uppercase">What is your current AI weapon of choice?</p>
+            
+            <div class="mt-4">
+                <label class="radio-container">I haven't really started yet.
+                  <input type="radio" name="arsenal" required>
+                  <span class="checkmark"></span>
+                </label>
+                <label class="radio-container">I use ChatGPT for bits and pieces.
+                  <input type="radio" name="arsenal">
+                  <span class="checkmark"></span>
+                </label>
+                <label class="radio-container">I use Claude or Gemini.
+                  <input type="radio" name="arsenal">
+                  <span class="checkmark"></span>
+                </label>
+                <label class="radio-container">I have a fully automated AI workflow.
+                  <input type="radio" name="arsenal">
+                  <span class="checkmark"></span>
+                </label>
+            </div>
+        </section>
+
+        <section class="space-y-6">
+            <h2 class="bebas text-4xl text-secondary border-b-2 border-secondary pb-2">03. THE HUSTLE</h2>
+            <p class="text-sm text-gray-400 uppercase">Where do you actually get your clients?</p>
+            
+            <select required class="w-full">
+                <option value="" disabled selected>Select your primary channel...</option>
+                <option value="linkedin">LinkedIn</option>
+                <option value="instagram">Instagram</option>
+                <option value="tiktok">TikTok</option>
+                <option value="wom">Word of Mouth / Referrals</option>
+                <option value="ads">Paid Ads</option>
+                <option value="none">I have no idea.</option>
+            </select>
+        </section>
+
+        <section class="space-y-6">
+            <h2 class="bebas text-4xl text-primary border-b-2 border-primary pb-2">04. THE HIT LIST</h2>
+            <label class="block text-sm text-gray-400 uppercase">What is the one specific admin task you want to absolutely murder during this workshop?</label>
+            <textarea rows="3" placeholder="e.g., Chasing late invoices, writing weekly newsletters, formatting proposals..." required></textarea>
+        </section>
+
+        <div class="pt-8">
+            <button type="submit" class="w-full bg-primary text-black bebas text-5xl py-6 hover:bg-white hover:text-black transition-none cursor-pointer tracking-widest">
+                SUBMIT MANIFEST
+            </button>
+            <p class="text-center text-xs text-gray-600 mt-4 uppercase">No going back after you hit submit.</p>
+        </div>
+
+    </form>
+</body>
+</html>
