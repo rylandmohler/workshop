@@ -230,6 +230,7 @@
                 // Send without JSON headers or no-cors mode, let the browser handle it natively
                 await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
+                    mode: 'no-cors',
                     body: formData
                 });
 
