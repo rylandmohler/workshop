@@ -216,29 +216,22 @@
             btn.classList.replace('bg-primary', 'bg-gray-600');
             btn.classList.replace('text-black', 'text-white');
 
-            const payload = {
-                firstName: document.getElementById('f_fname').value,
-                lastName: document.getElementById('f_lname').value,
-                email: document.getElementById('f_email').value,
-                business: document.getElementById('f_biz').value,
-                arsenal: document.querySelector('input[name="arsenal"]:checked').value,
-                hustle: document.getElementById('f_hustle').value,
-                hitlist: document.getElementById('f_hitlist').value
-            };
+            // Package data as standard FormData (bulletproof for Google Scripts)
+            const formData = new FormData();
+            formData.append('firstName', document.getElementById('f_fname').value);
+            formData.append('lastName', document.getElementById('f_lname').value);
+            formData.append('email', document.getElementById('f_email').value);
+            formData.append('business', document.getElementById('f_biz').value);
+            formData.append('arsenal', document.querySelector('input[name="arsenal"]:checked').value);
+            formData.append('hustle', document.getElementById('f_hustle').value);
+            formData.append('hitlist', document.getElementById('f_hitlist').value);
 
             try {
-                if (GOOGLE_SCRIPT_URL !== 'YOUR_WEB_APP_URL_HERE') {
-                    await fetch(GOOGLE_SCRIPT_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        // THE FIX: Changed to text/plain to bypass Google's strict CORS preflight
-                        headers: { 'Content-Type': 'text/plain' }, 
-                        body: JSON.stringify(payload),
-                    });
-                } else {
-                    console.warn("Dev Mode: Payload captured, but no Google Script URL provided.", payload);
-                    await new Promise(resolve => setTimeout(resolve, 1500)); 
-                }
+                // Send without JSON headers or no-cors mode, let the browser handle it natively
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    body: formData
+                });
 
                 // Hide form, show brutalist success state
                 document.getElementById('manifest-form').style.display = 'none';
